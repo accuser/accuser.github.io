@@ -1,0 +1,11 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/jekyll",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "latest"
+		}
+	},
+	"forwardPorts": [
+		4000
+	]
+}

@@ -1,1 +1,14 @@
+name: accuser.dev
+author: Matthew Gibbons
+description: A blog about software development and other things.
+source: docs
 theme: jekyll-theme-cayman
+footer-links:
+  email: hello@accuser.dev
+  github: accuser
+  linkedin: matthewgibbons
+plugins:
+  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-seo-tag
+  - jekyll-paginate

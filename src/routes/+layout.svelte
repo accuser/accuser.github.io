@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import '../app.css';
-	let { children } = $props();
+
+	const { children } = $props();
 </script>
 
-{@render children()}
+{@render children?.()}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Footer from '$lib/components/Footer.svelte';
 	import type { Snippet } from 'svelte';
 	import type { PageData } from './$types';
 
@@ -20,3 +21,5 @@
 	</main>
 	<footer></footer>
 </article>
+
+<Footer />

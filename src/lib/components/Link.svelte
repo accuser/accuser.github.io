@@ -1,10 +1,17 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-	let { children, ...props }: HTMLAnchorAttributes = $props();
+	let { children, ...props }: import('svelte/elements').HTMLAnchorAttributes = $props();
 
-	let href = $derived(props.href?.startsWith('/') ? `${base}${props.href}` : props.href);
+	let href = $derived.by(() => {
+		const { href } = props;
+
+		if (href && href.startsWith('/')) {
+			return `${base}${href}`;
+		} else {
+			return href;
+		}
+	});
 </script>
 
 <svelte:element this={'a'} {...props} {href}>{@render children?.()}</svelte:element>

@@ -1,40 +1,31 @@
-import fg from 'fast-glob';
+import { dev } from '$app/environment';
 import type { Root } from 'mdast';
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
 import astFromMarkdown from './ast/ast-from-markdown.js';
 import frontmatterFromAst from './ast/frontmatter-from-ast.js';
 import slugFromFilename from './ast/slug-from-filename.js';
 import titleFromAst from './ast/title-from-ast.js';
 
-type Options = {
-	pattern?: string | string[];
-	cwd?: string;
-};
-
-export interface Content {
+interface Content {
 	ast: Root;
 	filename: string;
 	frontmatter: Record<string, unknown>;
 	title: string;
+	watcher?: () => Promise<string>;
 }
 
-const buildContentMap: (options?: Options) => Promise<Map<string, Content>> = async ({
-	pattern = '**/*.md',
-	cwd = path.join(process.cwd(), 'data')
-} = {}) => {
-	const stream = fg.globStream(pattern, {
-		cwd,
-		dot: false,
-		followSymbolicLinks: false
-	});
-
+const buildContentMap: () => Promise<Map<string, Content>> = async () => {
 	const fileMap = new Map<string, Content>();
 
-	for await (const entry of stream) {
-		const filename = entry.toString();
+	const mdFiles = import.meta.glob<string>('/data/**/*.md', {
+		eager: false,
+		import: 'default',
+		query: '?raw'
+	});
 
-		const src = await readFile(path.join(cwd, filename), 'utf8');
+	for (const [filepath, loader] of Object.entries(mdFiles)) {
+		const filename = filepath.replace(/^\/data\//, '').replace(/(?:index)?\.md$/, '');
+
+		const src = await loader();
 		const ast = astFromMarkdown(src);
 
 		const {
@@ -47,7 +38,8 @@ const buildContentMap: (options?: Options) => Promise<Map<string, Content>> = as
 			ast,
 			filename,
 			frontmatter,
-			title
+			title,
+			watcher: dev ? loader : undefined
 		});
 	}
 
@@ -56,4 +48,4 @@ const buildContentMap: (options?: Options) => Promise<Map<string, Content>> = as
 
 const siteContent = await buildContentMap();
 
-export { buildContentMap, siteContent };
+export { buildContentMap, siteContent as default, type Content };

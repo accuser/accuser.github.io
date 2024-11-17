@@ -4,9 +4,7 @@
 
 	let { data }: { data: PageData } = $props();
 
-	let {
-		page: { ast }
-	} = $derived(data);
+	let { ast } = $derived(data);
 </script>
 
 <Markdown {ast} />

@@ -4,16 +4,14 @@
 
 	let { children, data }: { children: Snippet; data: PageData } = $props();
 
-	let {
-		page: { title }
-	} = $derived(data);
+	let { title } = $derived(data);
 </script>
 
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
 
-<article class="prose-base prose-orange prose mx-auto max-w-prose dark:prose-invert">
+<article class="prose prose-base prose-orange mx-auto max-w-prose dark:prose-invert">
 	<heading>
 		<h1>{title}</h1>
 	</heading>

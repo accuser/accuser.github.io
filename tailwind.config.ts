@@ -371,7 +371,7 @@ export default {
 			'8xl': ['6rem', { lineHeight: '1' }],
 			'9xl': ['8rem', { lineHeight: '1' }]
 		},
-		typography: typographyStyles,
+		// typography: typographyStyles,
 		extend: {
 			boxShadow: {
 				glow: '0 0 4px rgb(0 0 0 / 0.1)'

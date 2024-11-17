@@ -2,18 +2,20 @@
 	import { base } from '$app/paths';
 	import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-	let { children, href: _href, ...props }: HTMLAnchorAttributes = $props();
+	let { children, ...props }: HTMLAnchorAttributes = $props();
 
 	let href = $derived.by(() => {
-		if (_href === undefined || _href === null || base === '') {
+		const { href } = props;
+
+		if (href === undefined || href === null || base === '') {
 			// do nothing
-		} else if (_href.startsWith('/')) {
-			return `${base}${_href}`;
+		} else if (href.startsWith('/')) {
+			return `${base}${href}`;
 		} else {
 			// do nothing
 		}
 
-		return _href;
+		return href;
 	});
 </script>
 

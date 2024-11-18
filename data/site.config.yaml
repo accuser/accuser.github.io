@@ -1,0 +1,17 @@
+---
+title: accuser.dev
+description: A collection of tutorials, how-to guides, reference, and explanation for software engineering.
+keywords:
+  - JavaScript
+  - Node
+  - Svelte
+  - SvelteKit
+  - TypeScript
+links:
+  - /about: About
+  - /contact: Contact
+sections:
+  - /tutorials: Tutorials
+  - /how-to-guides: How-to guides
+  - /reference: Reference
+  - /explanation: Explanation

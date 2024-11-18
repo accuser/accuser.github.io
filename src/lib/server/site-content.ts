@@ -1,51 +1,70 @@
-import { dev } from '$app/environment';
-import type { Root } from 'mdast';
+import type { Content } from '$lib/types/content.js';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import astFromMarkdown from './ast/ast-from-markdown.js';
 import frontmatterFromAst from './ast/frontmatter-from-ast.js';
 import slugFromFilename from './ast/slug-from-filename.js';
 import titleFromAst from './ast/title-from-ast.js';
+import sources, { cwd } from './sources.js';
 
-interface Content {
-	ast: Root;
-	filename: string;
-	frontmatter: Record<string, unknown>;
-	title: string;
-	watcher?: () => Promise<string>;
-}
+const contentMap = (
+	await Promise.all(
+		sources.map(async (filename) => ({
+			[filename]: astFromMarkdown(await readFile(join(cwd, filename), 'utf8'))
+		}))
+	)
+).reduce((acc, cur) => Object.assign(acc, cur), {});
 
-const buildContentMap: () => Promise<Map<string, Content>> = async () => {
-	const fileMap = new Map<string, Content>();
+const buildContent: () => Record<number | string, Content> = () => {
+	const { idMap, slugMap } = Object.entries(contentMap)
+		.map(([filename, ast], id) => {
+			const frontmatter = frontmatterFromAst(ast);
 
-	const mdFiles = import.meta.glob<string>('/data/**/*.md', {
-		eager: false,
-		import: 'default',
-		query: '?raw'
-	});
+			const {
+				description,
+				slug = slugFromFilename(filename),
+				title = titleFromAst(ast)
+			} = frontmatter;
 
-	for (const [filepath, loader] of Object.entries(mdFiles)) {
-		const filename = filepath.replace(/^\/data\//, '').replace(/(?:index)?\.md$/, '');
+			return {
+				id,
+				ast,
+				description,
+				filename,
+				frontmatter,
+				slug,
+				title
+			};
+		})
+		.reduce(
+			({ idMap, slugMap }, cur) => {
+				idMap[cur.id] = cur;
+				slugMap[cur.slug] = cur;
 
-		const src = await loader();
-		const ast = astFromMarkdown(src);
+				return {
+					idMap,
+					slugMap
+				};
+			},
+			{
+				idMap: {} as Record<number, Content>,
+				slugMap: {} as Record<string, Content>
+			}
+		);
 
-		const {
-			slug = slugFromFilename(filename),
-			title = titleFromAst(ast),
-			...frontmatter
-		} = frontmatterFromAst<{ slug: string; title: string }>(ast);
-
-		fileMap.set(slug, {
-			ast,
-			filename,
-			frontmatter,
-			title,
-			watcher: dev ? loader : undefined
-		});
-	}
-
-	return fileMap;
+	return new Proxy<Record<string | number, Content>>(
+		{},
+		{
+			get: (_target, prop: number | string | symbol) =>
+				typeof prop === 'string' && isNaN(Number(prop))
+					? slugMap[prop]
+					: typeof prop === 'number' || typeof prop === 'string'
+						? idMap[Number(prop)]
+						: undefined
+		}
+	);
 };
 
-const siteContent = await buildContentMap();
+const content = buildContent();
 
-export { buildContentMap, siteContent as default, type Content };
+export { content as default };

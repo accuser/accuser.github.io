@@ -1,26 +1,17 @@
-import { buildContentMap } from '$lib/server/site-content';
-import { error } from '@sveltejs/kit';
+import siteConfig from '$lib/server/site-config';
 import type { LayoutServerLoad } from './$types';
-
-const allowed = (value: string) => Boolean(value) && value.startsWith('.') === false;
 
 export const prerender = true;
 export const trailingSlash = 'never';
 
-export const load = (async ({ params: { slug } }) => {
-	const site = await buildContentMap();
+export const load = (async () => {
+	const { links = [], sections = [], title = 'Untitled' } = siteConfig;
 
-	const path = slug.split('/').filter(allowed).join('/');
-
-	const page = site.get(path);
-
-	if (page) {
-		const { ast, frontmatter, title, watcher } = page;
-
-		watcher?.();
-
-		return { ast, frontmatter, title };
-	}
-
-	throw error(404, 'Not found');
+	return {
+		site: {
+			links,
+			sections,
+			title
+		}
+	};
 }) satisfies LayoutServerLoad;

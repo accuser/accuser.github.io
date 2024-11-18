@@ -4,7 +4,15 @@
 
 	let { data }: { data: PageData } = $props();
 
-	let { ast } = $derived(data);
+	let {
+		page: { ast, title }
+	} = $derived(data);
 </script>
 
-<Markdown {ast} />
+<article class="prose prose-base prose-orange max-w-prose dark:prose-invert">
+	<header>{title}</header>
+	<main>
+		<Markdown {ast} />
+	</main>
+	<footer></footer>
+</article>

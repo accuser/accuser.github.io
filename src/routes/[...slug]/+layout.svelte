@@ -1,25 +1,19 @@
 <script lang="ts">
-	import Footer from '$lib/components/Footer.svelte';
-	import type { Snippet } from 'svelte';
-	import type { PageData } from './$types';
+	import Layout from '$lib/components/Layout.svelte';
 
-	let { children, data }: { children: Snippet; data: PageData } = $props();
+	let { children, data } = $props();
 
-	let { title } = $derived(data);
+	let {
+		site: { links = [], sections = [], title }
+	} = $derived(data);
 </script>
 
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
 
-<article class="prose prose-base prose-orange mx-auto max-w-prose dark:prose-invert">
-	<heading>
-		<h1>{title}</h1>
-	</heading>
-	<main>
+<div class="w-full">
+	<Layout {links} {sections}>
 		{@render children?.()}
-	</main>
-	<footer></footer>
-</article>
-
-<Footer />
+	</Layout>
+</div>

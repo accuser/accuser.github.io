@@ -1,5 +1,5 @@
-import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
+import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 const typographyStyles = ({ theme }) => {
@@ -350,8 +350,7 @@ const typographyStyles = ({ theme }) => {
 	};
 };
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const config: Config = {
 	content: ['src/**/*.svelte'],
 	darkMode: 'selector',
 	theme: {
@@ -371,7 +370,7 @@ export default {
 			'8xl': ['6rem', { lineHeight: '1' }],
 			'9xl': ['8rem', { lineHeight: '1' }]
 		},
-		// typography: typographyStyles,
+		typography: typographyStyles,
 		extend: {
 			boxShadow: {
 				glow: '0 0 4px rgb(0 0 0 / 0.1)'
@@ -397,21 +396,12 @@ export default {
 				return {
 					DEFAULT: {
 						css: {
-							fontFamily: theme('fontFamily.sans').join(', '),
+							fontFamily: theme('fontFamily.serif').join(', '),
 							'code::before': {
 								content: 'none'
 							},
 							'code::after': {
 								content: 'none'
-							},
-							h1: {
-								fontFamily: theme('fontFamily.serif').join(', ')
-							},
-							h2: {
-								fontFamily: theme('fontFamily.serif').join(', ')
-							},
-							h3: {
-								fontFamily: theme('fontFamily.serif').join(', ')
 							},
 							code: {
 								fontFamily: theme('fontFamily.mono').join(', ')
@@ -422,5 +412,7 @@ export default {
 			}
 		}
 	},
-	plugins: [forms(), typography()]
+	plugins: [typography()]
 };
+
+export { config as default };

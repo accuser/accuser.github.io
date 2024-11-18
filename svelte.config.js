@@ -6,7 +6,7 @@ import path from 'node:path';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({ fallback: '404.html', strict: true }),
 		paths: {
 			base:
 				'BASE_PATH' in process.env && typeof process.env.BASE_PATH === 'string'
@@ -21,6 +21,7 @@ const config = {
 			handleMissingId: (params) => {
 				console.error(params.message);
 			},
+
 			entries: fg
 				.globSync(['data', '**', '*.md'].join(path.sep), { cwd: process.cwd() })
 				.map((entry) => entry.replace(/(^data)|(index\.md$)|(\.md$)/g, ''))

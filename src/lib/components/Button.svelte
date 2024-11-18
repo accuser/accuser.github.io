@@ -3,7 +3,7 @@
 	import clsx from 'clsx';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
-	import ArrowIcon from './ArrowIcon.svelte';
+	import Octicon from './Octicon.svelte';
 
 	const variantStyles = {
 		primary:
@@ -24,7 +24,6 @@
 		...props
 	}: {
 		arrow?: 'left' | 'right';
-		class?: string;
 		children: Snippet;
 		variant?: keyof typeof variantStyles;
 	} & (HTMLAnchorAttributes | (HTMLButtonAttributes & { href?: undefined })) = $props();
@@ -57,7 +56,8 @@
 
 <svelte:element this={tag} {...{ ...props, href }} class={klass}>
 	{#if arrow === 'left'}
-		<ArrowIcon
+		<Octicon
+			name="arrow-left"
 			class={clsx(
 				'mt-0.5 h-5 w-5',
 				variant === 'text' ? 'relative top-px' : '',
@@ -67,7 +67,8 @@
 	{/if}
 	{@render children?.()}
 	{#if arrow === 'right'}
-		<ArrowIcon
+		<Octicon
+			name="arrow-right"
 			class={clsx('mt-0.5 h-5 w-5', variant === 'text' ? 'relative top-px' : '', '-mr-1')}
 		/>
 	{/if}

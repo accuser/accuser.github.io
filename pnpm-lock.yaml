@@ -15,6 +15,9 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.15)
     devDependencies:
+      '@primer/octicons':
+        specifier: ^19.12.0
+        version: 19.12.0
       '@sveltejs/adapter-static':
         specifier: ^3.0.6
         version: 3.0.6(@sveltejs/kit@2.8.1(@sveltejs/vite-plugin-svelte@4.0.1(svelte@5.2.2)(vite@5.4.11(@types/node@22.9.0)))(svelte@5.2.2)(vite@5.4.11(@types/node@22.9.0)))
@@ -36,6 +39,9 @@ importers:
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
+      '@types/primer__octicons':
+        specifier: ^19.11.0
+        version: 19.11.0
       '@types/unist':
         specifier: ^3.0.3
         version: 3.0.3
@@ -99,6 +105,12 @@ importers:
       micromark-extension-math:
         specifier: ^3.1.0
         version: 3.1.0
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      postcss-load-config:
+        specifier: ^6.0.1
+        version: 6.0.1(jiti@2.4.0)(postcss@8.4.49)(yaml@2.6.0)
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
@@ -382,6 +394,9 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
+  '@primer/octicons@19.12.0':
+    resolution: {integrity: sha512-VX2/Iu43ZfQaX9OoCNJrzrLBF5BicG3hVY/Nx6slP/YJVZlVwWUiZzjF9hg9lNlLfii5gjl/gAGf/5YZ3Yz78A==}
+
   '@rollup/rollup-android-arm-eabi@4.27.2':
     resolution: {integrity: sha512-Tj+j7Pyzd15wAdSJswvs5CJzJNV+qqSUcr/aCD+jpQSBtXvGnV0pnrjoc8zFTe9fcKCatkpFpOO7yAzpO998HA==}
     cpu: [arm]
@@ -540,6 +555,9 @@ packages:
 
   '@types/node@22.9.0':
     resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
+
+  '@types/primer__octicons@19.11.0':
+    resolution: {integrity: sha512-NmSSzuKo526mpi7zWStxFej6k0/PLQYHgl/r3gQCqyH5/U2uqRAsMEUFOaIYi2ylFbey33sYdBI5y3xIsfwbEw==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -1508,6 +1526,24 @@ packages:
       ts-node:
         optional: true
 
+  postcss-load-config@6.0.1:
+    resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      jiti: '>=1.21.0'
+      postcss: '>=8.0.9'
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      jiti:
+        optional: true
+      postcss:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+
   postcss-nested@6.2.0:
     resolution: {integrity: sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==}
     engines: {node: '>=12.0'}
@@ -2137,6 +2173,10 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
+  '@primer/octicons@19.12.0':
+    dependencies:
+      object-assign: 4.1.1
+
   '@rollup/rollup-android-arm-eabi@4.27.2':
     optional: true
 
@@ -2278,6 +2318,8 @@ snapshots:
   '@types/node@22.9.0':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/primer__octicons@19.11.0': {}
 
   '@types/unist@2.0.11': {}
 
@@ -3442,6 +3484,14 @@ snapshots:
       yaml: 2.6.0
     optionalDependencies:
       postcss: 8.4.49
+
+  postcss-load-config@6.0.1(jiti@2.4.0)(postcss@8.4.49)(yaml@2.6.0):
+    dependencies:
+      lilconfig: 3.1.2
+    optionalDependencies:
+      jiti: 2.4.0
+      postcss: 8.4.49
+      yaml: 2.6.0
 
   postcss-nested@6.2.0(postcss@8.4.49):
     dependencies:

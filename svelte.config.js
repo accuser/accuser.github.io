@@ -8,10 +8,10 @@ const config = {
 	kit: {
 		adapter: adapter({ fallback: '404.html', strict: true }),
 		paths: {
-			base:
-				'BASE_PATH' in process.env && typeof process.env.BASE_PATH === 'string'
-					? process.env.BASE_PATH
-					: '',
+			// base:
+			// 	'BASE_PATH' in process.env && typeof process.env.BASE_PATH === 'string'
+			// 		? process.env.BASE_PATH
+			// 		: '',
 			relative: false
 		},
 		prerender: {

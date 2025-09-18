@@ -10,7 +10,8 @@
 				"ms-vscode.vscode-typescript-next",
 				"svelte.svelte-vscode",
 				"vitest.explorer",
-				"bierner.github-markdown-preview"
+				"bierner.github-markdown-preview",
+				"GitHub.vscode-github-actions"
 			]
 		}
 	},

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Layout from '$lib/components/layout/site';
+	import * as Layout from '$lib/layouts/site';
 	import * as Site from '$lib/providers/site';
 	import '../app.css';
 	import type { LayoutProps } from './$types';

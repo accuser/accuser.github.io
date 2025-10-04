@@ -1,0 +1,24 @@
+<script lang="ts">
+	import type { Post } from '$lib/schemas/post.schema';
+	import { cn, type WithElementRef } from '$lib/utils';
+	import type { HTMLAttributes } from 'svelte/elements';
+
+	let {
+		children,
+		class: className,
+		page,
+		ref = $bindable(null),
+		...props
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+		page: Post;
+	} = $props();
+</script>
+
+<div
+	bind:this={ref}
+	class={cn('relative flex h-full w-full flex-col', className)}
+	data-slot="site"
+	{...props}
+>
+	{@render children?.()}
+</div>

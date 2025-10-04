@@ -5,3 +5,4 @@ export const SITE_DESCRIPTION =
 export const SITE_IMAGE = favicon;
 export const SITE_TITLE = 'accuser.dev';
 export const SITE_URL = 'https://accuser.dev';
+export const SITE_YEAR = new Date().getFullYear();

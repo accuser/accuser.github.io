@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { type Content } from '$lib/providers/content';
 	import type { Snippet } from 'svelte';
 	import { createPostContext } from './create-post-context.svelte';
-	import type { PostProps } from './post-props';
+	import { validatePost } from './post.schema';
 
-	let { children, post }: { children: Snippet; post: PostProps } = $props();
+	let { children, content }: { children: Snippet; content: Content } = $props();
 
-	const { title, url } = createPostContext(post);
+	let { title, url } = createPostContext(validatePost(content));
 </script>
 
 <svelte:head>

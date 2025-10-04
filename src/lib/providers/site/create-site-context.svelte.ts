@@ -1,33 +1,48 @@
-import { SITE_DESCRIPTION, SITE_IMAGE, SITE_TITLE, SITE_URL } from '$lib/config';
 import { setContext } from 'svelte';
-import { SvelteDate } from 'svelte/reactivity';
+import type { Site } from '../../schemas/site.schema';
 import { SITE_CONTEXT } from './site-context.symbol';
-import type { SiteProps } from './site-props';
 
-export const createSiteContext = ({
-	description = SITE_DESCRIPTION,
-	image = SITE_IMAGE,
-	title = SITE_TITLE,
-	url = SITE_URL,
-	year = new SvelteDate().getFullYear()
-}: SiteProps) => {
+export interface SiteContext {
+	categories: string[];
+	description: string;
+	image: string;
+	href: string;
+	link: string | { href: string; title?: string } | null;
+	tags: string[];
+	title: string;
+	year: number;
+}
+
+export const createSiteContext = (site: Site): SiteContext => {
+	const {
+		attributes: { categories, description, image, tags, title, year },
+		links: { self } = {}
+	} = site;
+
 	return setContext(SITE_CONTEXT, {
+		get categories() {
+			return categories;
+		},
 		get description() {
 			return description;
 		},
 		get image() {
 			return image;
 		},
+		get href() {
+			return self === null ? '#' : typeof self === 'string' ? self : self.href;
+		},
+		get link() {
+			return self;
+		},
+		get tags() {
+			return tags;
+		},
 		get title() {
 			return title;
-		},
-		get url() {
-			return url;
 		},
 		get year() {
 			return year;
 		}
 	});
 };
-
-export type SiteContext = ReturnType<typeof createSiteContext>;

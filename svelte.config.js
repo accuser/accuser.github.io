@@ -18,7 +18,7 @@ const config = {
 		},
 		prerender: {
 			crawl: true,
-			entries: ['/categories', '/[...slug]'],
+			entries: ['/categories'],
 			handleHttpError: 'ignore'
 		}
 	},

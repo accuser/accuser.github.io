@@ -17,7 +17,9 @@ const config = {
 			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
 		},
 		prerender: {
-			handleHttpError: 'warn'
+			crawl: true,
+			entries: ['/categories', '/[...slug]'],
+			handleHttpError: 'ignore'
 		}
 	},
 	preprocess: [vitePreprocess()]

@@ -13,9 +13,6 @@ const config = {
 		experimental: {
 			remoteFunctions: true
 		},
-		paths: {
-			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
-		},
 		prerender: {
 			crawl: true,
 			entries: ['/categories']

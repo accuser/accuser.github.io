@@ -15,18 +15,16 @@
 <main class="container mx-auto px-4 py-8">
 	<h1 class="mb-6 text-3xl font-bold">Categories</h1>
 	{#if categories.length > 0}
-		<ul class="space-y-4">
-			{#each categories as { id, attributes, links, relationships: { posts: { data: posts } } }}
-				<li>
-					<a href={links?.self || '#'} class="text-xl text-blue-600 hover:underline">
-						{attributes?.name || id}
-					</a>
-					{#each posts as post}
+		{#each categories as { id, attributes, links, relationships: { posts: { data: posts } } }}
+			{attributes?.name || id}
+			<ul class="space-y-4">
+				{#each posts as post}
+					<li>
 						<a href={post.id}>{post.id}</a>
-					{/each}
-				</li>
-			{/each}
-		</ul>
+					</li>
+				{/each}
+			</ul>
+		{/each}
 	{:else}
 		<p>No categories found.</p>
 	{/if}

@@ -18,8 +18,7 @@ const config = {
 		},
 		prerender: {
 			crawl: true,
-			entries: ['/categories'],
-			handleHttpError: 'ignore'
+			entries: ['/categories']
 		}
 	},
 	preprocess: [vitePreprocess()]
